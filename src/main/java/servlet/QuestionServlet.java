@@ -14,20 +14,11 @@ import java.util.List;
 
 public class QuestionServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         QuestionRepository questionRepository = new QuestionRepository();
         List<Questions> questionsList = null;
-        try {
-            questionsList = questionRepository.getAllQuestions();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        questionsList = questionRepository.getAllQuestions();
 
-//        req.setAttribute("questionsList", questionsList);
-//
-//        req.getRequestDispatcher("question.jsp").forward(req, resp);
         PrintWriter print = resp.getWriter();
         for (Questions questions : questionsList) {
             print.println(questions);
@@ -36,15 +27,8 @@ public class QuestionServlet extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
         QuestionRepository questionRepository = new QuestionRepository();
-        try {
-            questionRepository.deleteQuestion(Integer.parseInt(req.getParameter("question_id")));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-//        req.getRequestDispatcher("question.jsp").forward(req, resp);
+        questionRepository.addQuestion(req.getParameter("question"));
     }
 }

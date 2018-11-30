@@ -1,74 +1,50 @@
 package repository;
 
+import interceptor.ValidationInterceptor;
 import model.Users;
+import org.hibernate.Session;
 
-import java.sql.*;
-import java.util.ArrayList;
+
+import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
+
 import java.util.List;
 
 public class UsersRepository {
 
-    public List<Users> getAllUsers() throws SQLException, ClassNotFoundException {
-        Connection connection = DataSource.getInstance().getConnection();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
-        List<Users> usersList = new ArrayList<Users>();
-        while (resultSet.next()) {
-            Users user = new Users(resultSet.getInt("user_id"), resultSet.getString("user_name"));
-            usersList.add(user);
-        }
-        if (statement != null) {
-            statement.close();
-        }
-        if (connection != null) {
-            connection.close();
-        }
+    public List<Users> getAllUsers() {
+        Session session = DataSource.getSessionFactory().openSession();
+        List<Users> usersList = session.createQuery("from Users").list();
+        session.close();
         return usersList;
+    }
+
+    public void addUser(String userName, String pasportData, Integer age) {
+        ValidationInterceptor validationInterceptor = new ValidationInterceptor();
+        Session session = DataSource.getSessionFactory().withOptions().interceptor(validationInterceptor).openSession();
+        Users user = new Users();
+        user.setUserName(userName);
+        user.setPasportData(pasportData);
+        user.setAge(age);
+        session.save(user);
+        session.close();
 
     }
 
-    public void addUser(String userName) throws SQLException, ClassNotFoundException {
-        Connection connection = DataSource.getInstance().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users(user_name) VALUES (?)");
-        preparedStatement.setString(1, userName);
-        preparedStatement.executeUpdate();
-        if (preparedStatement!=null){
-            preparedStatement.close();
-        }
-        if (connection!=null){
-            connection.close();
-        }
-    }
+    public void deleteUser(String userName)  {
+        Session session = DataSource.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("delete from Users where userName=?1");
+        query.setParameter(1,userName);
+        query.executeUpdate();
 
-    public void deleteUser(String userName) throws SQLException, ClassNotFoundException {
-        Connection connection = DataSource.getInstance().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM users WHERE user_name=?");
-        preparedStatement.setString(1, userName);
-        preparedStatement.executeUpdate();
-        if (preparedStatement!=null){
-            preparedStatement.close();
-        }
-        if (connection!=null){
-            connection.close();
-        }
+        session.close();
     }
 
 
-    public int findUserId(String userName) throws SQLException,ClassNotFoundException{
-        int userId;
-        Connection connection = DataSource.getInstance().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT user_id FROM users WHERE user_name=?");
-        preparedStatement.setString(1,userName);
-        userId = preparedStatement.executeUpdate();
 
-        if (preparedStatement!=null){
-            preparedStatement.close();
-        }
-        if (connection!=null){
-            connection.close();
-        }
-        return userId;
 
-    }
 
 }

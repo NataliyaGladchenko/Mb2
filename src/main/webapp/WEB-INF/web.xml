@@ -10,23 +10,15 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>answers</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern>/answers</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>adduser</servlet-name>
-        <servlet-class>servlet.AddUserServlet</servlet-class>
+        <servlet-name>user</servlet-name>
+        <servlet-class>servlet.UserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>adduser</servlet-name>
-        <url-pattern>/adduser</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>addquestion</servlet-name>
-        <servlet-class>servlet.AddQuestionServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>addquestion</servlet-name>
-        <url-pattern>/addquestion</url-pattern>
+        <servlet-name>user</servlet-name>
+        <url-pattern>/user</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>question</servlet-name>
@@ -35,5 +27,29 @@
     <servlet-mapping>
         <servlet-name>question</servlet-name>
         <url-pattern>/question</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ask</servlet-name>
+        <servlet-class>servlet.AskServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ask</servlet-name>
+        <url-pattern>/ask</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>answ</servlet-name>
+        <servlet-class>servlet.AServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>answ</servlet-name>
+        <url-pattern>/answ</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>profile</servlet-name>
+        <servlet-class>servlet.ProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
     </servlet-mapping>
 </web-app>
