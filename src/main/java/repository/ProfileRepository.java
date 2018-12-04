@@ -6,9 +6,8 @@ import model.IndigenousProfile;
 import model.Profile;
 import org.hibernate.Session;
 
-import javax.persistence.Query;
-import javax.xml.crypto.Data;
 import java.util.List;
+
 
 public class ProfileRepository {
 
@@ -19,14 +18,14 @@ public class ProfileRepository {
         return profiles;
     }
 
-    public List<Profile> getListIndigenous(){
+    public List<Profile> getListIndigenous() {
         Session session = DataSource.getSessionFactory().openSession();
         List<Profile> profiles = session.createQuery("from IndigenousProfile").list();
         session.close();
         return profiles;
     }
 
-    public List<Profile> getListForeigners(){
+    public List<Profile> getListForeigners() {
         Session session = DataSource.getSessionFactory().openSession();
         List<Profile> profiles = session.createQuery("from ForeignersProfile").list();
         session.close();
@@ -66,8 +65,7 @@ public class ProfileRepository {
     }
 
     public void addIndigenous(int userid, String profile) {
-        IndigenousInterceptor interceptor = new IndigenousInterceptor();
-        Session session = DataSource.getSessionFactory().withOptions().interceptor(interceptor).openSession();
+        Session session = DataSource.getSessionFactory().openSession();
         IndigenousProfile indigenousProfile = new IndigenousProfile();
         indigenousProfile.setUserId(userid);
         indigenousProfile.setProfile(profile);

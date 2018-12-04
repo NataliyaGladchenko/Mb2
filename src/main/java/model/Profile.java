@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "profile", uniqueConstraints = {@UniqueConstraint(columnNames = "profile_id")})
 @DiscriminatorColumn(name = "discriminator", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("null")
-public class Profile {
+public class Profile extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "profile_id")

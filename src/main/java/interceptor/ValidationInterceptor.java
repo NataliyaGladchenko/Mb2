@@ -4,9 +4,11 @@ import model.Users;
 import org.hibernate.CallbackException;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
+import service.Interceptor;
 
 import java.io.Serializable;
 
+@Interceptor(cl=Users.class)
 public class ValidationInterceptor extends EmptyInterceptor {
     @Override
     public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) throws CallbackException {

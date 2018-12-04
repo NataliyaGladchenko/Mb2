@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "answers", uniqueConstraints = {@UniqueConstraint(columnNames = "answer_id")})
-public class Answers {
+public class Answers extends BaseModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

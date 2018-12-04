@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "user_id")})
-public class Users {
+public class Users extends BaseModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,7 +5,6 @@ import model.Users;
 import repository.AnswersRepository;
 import repository.UsersRepository;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
