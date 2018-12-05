@@ -11,11 +11,13 @@
         <property name="hibernate.connection.password">3110</property>
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 
+
         <mapping class="model.Users"/>
         <mapping class="model.Questions"/>
         <mapping class="model.Answers"/>
         <mapping class="model.Profile"/>
         <mapping class="model.ForeignersProfile"/>
         <mapping class="model.IndigenousProfile"/>
+
     </session-factory>
 </hibernate-configuration>

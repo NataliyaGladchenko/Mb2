@@ -3,12 +3,13 @@ package service;
 import model.BaseModel;
 import org.reflections.Reflections;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class ModelService {
-    private Map<Class<? extends BaseModel>, Set<InitializationInterceptor>> initializationInterceptors;
+    private Map<Class<? extends BaseModel>, Set<InitializationInterceptor>> initializationInterceptors = new HashMap<>();
 
     private static ModelService INSTANCE;
 
@@ -16,20 +17,24 @@ public class ModelService {
         initializeInterceptorRegistry();
     }
 
-    private static ModelService getInstance() {
-        synchronized (INSTANCE) {
-            if (INSTANCE == null) {
-                INSTANCE = new ModelService();
-            }
+    public static ModelService getInstance() {
+        //synchronized (INSTANCE) {
+        if (INSTANCE == null) {
+            INSTANCE = new ModelService();
         }
+        // }
         return INSTANCE;
+    }
+
+    public Map<Class<? extends BaseModel>, Set<InitializationInterceptor>> getInitializationInterceptors() {
+        return initializationInterceptors;
     }
 
     public <T extends BaseModel> T create(Class<T> aClass) {
         try {
             T model = aClass.newInstance();
             Set<InitializationInterceptor> interceptors = initializationInterceptors.get(aClass);
-            if (interceptors != null){
+            if (interceptors != null) {
                 for (InitializationInterceptor interceptor : interceptors) {
                     interceptor.onInitialize(model);
                 }
@@ -44,9 +49,11 @@ public class ModelService {
         Reflections reflections = new Reflections("interceptor");
         Set<Class<?>> interceptorsClasses = reflections.getTypesAnnotatedWith(Interceptor.class);
         Set<Object> instances = new HashSet<>();
+
         for (Class<?> interceptorsClass : interceptorsClasses) {
             try {
                 instances.add(interceptorsClass.newInstance());
+
             } catch (Exception e) {
                 throw new RuntimeException("Can not instantiate class " + interceptorsClass.getName());
             }
@@ -63,6 +70,6 @@ public class ModelService {
                 }
             }
         }
-    }
 
+    }
 }

@@ -1,5 +1,6 @@
 package repository;
 
+import interceptor.MainInterceptor;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -8,10 +9,13 @@ public  class DataSource {
     private static final SessionFactory sessionFactory;
 
     static {
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        Configuration configuration = new Configuration();
+
+            sessionFactory = configuration.configure("hibernate.cfg.xml").buildSessionFactory();
     }
     public static SessionFactory getSessionFactory(){
-        return sessionFactory.withOptions().interceptor();
+
+        return sessionFactory;
     }
 
 }

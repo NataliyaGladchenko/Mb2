@@ -1,8 +1,8 @@
 converter\CaseConverter.class
 model\Questions.class
-interceptor\ValidationInterceptor.class
 interceptor\UsersInterceptor.class
 interceptor\IndigenousInterceptor.class
+model\BaseModel.class
 repository\QuestionRepository.class
 servlet\AServlet.class
 repository\ProfileRepository.class
@@ -16,9 +16,12 @@ repository\DataSource.class
 servlet\QuestionServlet.class
 model\Answers.class
 repository\UsersRepository.class
+service\ModelService.class
 servlet\AnswersServlet.class
+service\Interceptor.class
+service\InitializationInterceptor.class
 servlet\UserServlet.class
+interceptor\MainInterceptor.class
 model\IndigenousProfile.class
 reflection\Refl.class
-interceptor\DefaultValueInterceptor.class
 Runner.class

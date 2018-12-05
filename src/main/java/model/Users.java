@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "user_id")})
-public class Users extends BaseModel{
+public class Users extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,11 +31,12 @@ public class Users extends BaseModel{
     @OneToMany(targetEntity = Answers.class)
     private List<Answers> answersList;
 
-    public Users(int userId, String userName, String pasportData, Integer age) {
+    public Users(int userId, String userName, String pasportData, Integer age, List<Answers> answersList) {
         this.userId = userId;
         this.userName = userName;
         this.pasportData = pasportData;
         this.age = age;
+        this.answersList = answersList;
     }
 
     public Users() {
@@ -73,13 +74,17 @@ public class Users extends BaseModel{
         this.pasportData = pasportData;
     }
 
-    public Integer getAge() { return age; }
+    public Integer getAge() {
+        return age;
+    }
 
-    public void setAge(Integer age) { this.age = age; }
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
     @Override
     public String toString() {
-        return userName + answersList;
+        return userName + age + answersList;
     }
 
 

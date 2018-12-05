@@ -34,7 +34,11 @@ public class UserServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp)  {
         UsersRepository usersRepository = new UsersRepository();
-        usersRepository.addUser(req.getParameter("name"),req.getParameter("pasport"), Integer.parseInt(req.getParameter("age")));
+        if (req.getParameter("pasport").isEmpty()){
+            usersRepository.addUserWithDV(req.getParameter("name"),Integer.parseInt(req.getParameter("age")));
+        }else {
+            usersRepository.addUser(req.getParameter("name"), req.getParameter("pasport"), Integer.parseInt(req.getParameter("age")));
+        }
 //        usersRepository.deleteUser(req.getParameter("user_name"));
     }
 }

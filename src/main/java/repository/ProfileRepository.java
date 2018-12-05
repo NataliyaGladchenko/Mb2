@@ -1,6 +1,5 @@
 package repository;
 
-import interceptor.IndigenousInterceptor;
 import model.ForeignersProfile;
 import model.IndigenousProfile;
 import model.Profile;
@@ -45,8 +44,7 @@ public class ProfileRepository {
 
 
     public void addIndigenous(int numberOfTripsAbroad, int userId, String profile) {
-        IndigenousInterceptor interceptor = new IndigenousInterceptor();
-        Session session = DataSource.getSessionFactory().withOptions().interceptor(interceptor).openSession();
+        Session session = DataSource.getSessionFactory().openSession();
         IndigenousProfile indigenousProfile = new IndigenousProfile();
         indigenousProfile.setNumberOfTripsAbroad(numberOfTripsAbroad);
         indigenousProfile.setUserId(userId);
