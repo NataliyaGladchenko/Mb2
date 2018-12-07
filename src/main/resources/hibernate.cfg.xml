@@ -18,6 +18,6 @@
         <mapping class="model.Profile"/>
         <mapping class="model.ForeignersProfile"/>
         <mapping class="model.IndigenousProfile"/>
-
+        <mapping class="model.BaseModel"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,6 +1,7 @@
 package repository;
 
 import model.Users;
+import org.hibernate.Filter;
 import org.hibernate.Session;
 import service.ModelService;
 
@@ -11,6 +12,8 @@ public class UsersRepository {
 
     public List<Users> getAllUsers() {
         Session session = DataSource.getSessionFactory().openSession();
+//        Filter filter = session.enableFilter("usersFilter");
+//        filter.setParameter("age",23);
         List<Users> usersList = session.createQuery("from Users").list();
         session.close();
         return usersList;
@@ -46,5 +49,16 @@ public class UsersRepository {
         session.close();
     }
 
+
+    public static Users findUser(String userName, int password) {
+        Session session = DataSource.getSessionFactory().openSession();
+        Query query = session.createQuery("from Users where userName=?1");
+        query.setParameter(1, userName);
+        Users user = (Users) ((org.hibernate.query.Query) query).uniqueResult();
+        if (user != null && user.getPassword() == password) {
+            return user;
+        }
+        return null;
+    }
 
 }

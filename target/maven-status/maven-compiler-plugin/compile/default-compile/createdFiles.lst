@@ -6,6 +6,7 @@ model\BaseModel.class
 repository\QuestionRepository.class
 servlet\AServlet.class
 repository\ProfileRepository.class
+servlet\LoginServlet.class
 servlet\ProfileServlet.class
 model\ForeignersProfile.class
 model\Users.class
@@ -18,10 +19,13 @@ model\Answers.class
 repository\UsersRepository.class
 service\ModelService.class
 servlet\AnswersServlet.class
+config\SecurityConfig.class
 service\Interceptor.class
+filter\LoggingFilter.class
 service\InitializationInterceptor.class
 servlet\UserServlet.class
 interceptor\MainInterceptor.class
 model\IndigenousProfile.class
-reflection\Refl.class
+model\UsersRole.class
+utils\SecurityUtils.class
 Runner.class

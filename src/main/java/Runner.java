@@ -1,13 +1,14 @@
 import model.Users;
-import service.ModelService;
+import repository.UsersRepository;
+
+import java.util.List;
 
 public class Runner {
-    public static void main(String[] args)  {
-        Users user = ModelService.getInstance().create(Users.class);
-        user.setUserName("t");
-        user.setAge(15);
-        user.setPasportData(null);
-        System.out.println(user);
+    public static void main(String[] args) {
+        UsersRepository usersRepository = new UsersRepository();
+       System.out.println(usersRepository.findUser("Andrew", 1111));
+
+
 
 
     }
