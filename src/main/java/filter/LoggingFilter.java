@@ -43,7 +43,7 @@ public class LoggingFilter implements Filter {
         }
         HttpServletRequest wrapRequest = req;
         if (user != null) {
-
+            String userName = user.getUserName();
         }
         if (SecurityUtils.isSecurityPage(req)) {
             if (user == null) {
