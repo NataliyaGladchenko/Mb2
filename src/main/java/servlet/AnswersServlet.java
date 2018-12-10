@@ -29,7 +29,7 @@ public class AnswersServlet extends HttpServlet {
 
         PrintWriter printWriter = resp.getWriter();
         for (Users users : usersList) {
-            printWriter.println(users);
+            printWriter.println(users.getUserName() + users.getAnswersList());
         }
 
 

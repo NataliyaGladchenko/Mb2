@@ -1,7 +1,5 @@
 package utils;
 
-import model.UsersRole;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.security.Principal;
@@ -9,22 +7,22 @@ import java.util.List;
 
 public class UserRoleRequestWrapper extends HttpServletRequestWrapper {
     private String user;
-    private List<UsersRole> roles = null;
+    private List<String> role = null;
     private HttpServletRequest realRequest;
 
-    public UserRoleRequestWrapper(String user, List<UsersRole> roles, HttpServletRequest request) {
+    public UserRoleRequestWrapper(String user, List<String> role, HttpServletRequest request) {
         super(request);
         this.user = user;
-        this.roles = roles;
+        this.role = role;
         this.realRequest = request;
     }
 
     @Override
-    public boolean isUserInRole(String role) {
-        if (roles == null) {
-            return this.realRequest.isUserInRole(role);
+    public boolean isUserInRole(String userRole) {
+        if (role == null) {
+            return this.realRequest.isUserInRole(userRole);
         }
-        return roles.contains(role);
+        return role.contains(userRole);
     }
 
     @Override
@@ -39,4 +37,6 @@ public class UserRoleRequestWrapper extends HttpServletRequestWrapper {
             }
         };
     }
+
+
 }

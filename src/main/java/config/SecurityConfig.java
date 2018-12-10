@@ -1,11 +1,9 @@
 package config;
 
-import model.UsersRole;
-
 import java.util.*;
 
 public class SecurityConfig {
-    private static final Map<UsersRole, List<String>> configMap = new HashMap<>();
+    private static final Map<String, List<String>> configMap = new HashMap<>();
 
     static {
         init();
@@ -18,20 +16,16 @@ public class SecurityConfig {
         urlPattensLogined.add("/profile");
         urlPattensLogined.add("/answers");
 
-        configMap.put(UsersRole.LOGINED,urlPattensLogined);
+        configMap.put("Logined",urlPattensLogined);
 
-        List<String> urlPatternsUnlogined = new ArrayList<>();
 
-        urlPatternsUnlogined.add("/answers");
-
-        configMap.put(UsersRole.UNLOGINED,urlPatternsUnlogined);
 
     }
 
-    public static Set<UsersRole> getAllAppRoles() {
+    public static Set<String> getAllAppRoles() {
         return configMap.keySet();
     }
-    public static List<String> getUrlPatternsForRole(UsersRole role) {
+    public static List<String> getUrlPatternsForRole(String role) {
         return configMap.get(role);
     }
 }

@@ -1,19 +1,18 @@
 package filter;
 
-import config.SecurityConfig;
 import model.Users;
-import model.UsersRole;
-import repository.UsersRepository;
 import utils.AppUtils;
 import utils.SecurityUtils;
+import utils.UserRoleRequestWrapper;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @WebFilter("/*")
 public class LoggingFilter implements Filter {
@@ -44,14 +43,27 @@ public class LoggingFilter implements Filter {
         HttpServletRequest wrapRequest = req;
         if (user != null) {
             String userName = user.getUserName();
+            List<String> role = new ArrayList<>();
+            String string = "Logined";
+            role.add(string);
+            wrapRequest = new UserRoleRequestWrapper(userName, role, req);
+        } else {
+            List<String> role = new ArrayList<>();
+            String string = "Unlogined";
+            role.add(string);
+            wrapRequest = new UserRoleRequestWrapper(null, role, req);
         }
         if (SecurityUtils.isSecurityPage(req)) {
             if (user == null) {
+                String requestUri = req.getRequestURI();
+                int redirectId = AppUtils.storeRedirectAfterLoginUrl(req.getSession(), requestUri);
+                resp.sendRedirect(wrapRequest.getContextPath() + "/login?redirectId=" + redirectId);
                 return;
             }
             boolean hasPermission = SecurityUtils.hasPermission(req);
             if (!hasPermission) {
-
+                PrintWriter printWriter = resp.getWriter();
+                printWriter.println("Permission == " + hasPermission);
                 return;
             }
 

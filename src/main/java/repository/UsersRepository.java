@@ -1,7 +1,6 @@
 package repository;
 
 import model.Users;
-import org.hibernate.Filter;
 import org.hibernate.Session;
 import service.ModelService;
 

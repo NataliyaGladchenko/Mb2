@@ -19,6 +19,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PrintWriter printWriter = resp.getWriter();
 
     }
 
@@ -26,15 +27,29 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("user_name");
         int password = Integer.parseInt(req.getParameter("password"));
-        Users user = new UsersRepository().findUser(userName,password);
-        AppUtils.storeLoginedUser(req.getSession(),user);
+        Users user = new UsersRepository().findUser(userName, password);
+
         PrintWriter printWriter = resp.getWriter();
-        if (user == null){
+        if (user == null) {
             printWriter.println("Invalid userName or Password");
-            return;
-        }else {
+
+        } else {
             printWriter.println("Successful login " + user);
         }
 
+        AppUtils.storeLoginedUser(req.getSession(), user);
+
+        int redirectId = -1;
+        try {
+            redirectId = Integer.parseInt(req.getParameter("redirectId"));
+        } catch (Exception e) {
+        }
+        String requestUri = AppUtils.getRedirectAfterLoginUrl(req.getSession(), redirectId);
+        if (requestUri != null) {
+            resp.sendRedirect(requestUri);
+        } else {
+
+            resp.sendRedirect(req.getContextPath() + "/user");
+        }
     }
 }

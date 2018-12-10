@@ -1,7 +1,6 @@
 package utils;
 
 import config.SecurityConfig;
-import model.UsersRole;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -12,8 +11,8 @@ public class SecurityUtils {
     public static boolean isSecurityPage(HttpServletRequest req) {
         String urlPattern = UrlPatternUtils.getUrlPattern(req);
 
-        Set<UsersRole> roles = SecurityConfig.getAllAppRoles();
-        for (UsersRole role : roles) {
+        Set<String> roles = SecurityConfig.getAllAppRoles();
+        for (String role : roles) {
             List<String> urlPatterns = SecurityConfig.getUrlPatternsForRole(role);
             if (urlPattern != null && urlPatterns.contains(urlPattern)) {
                 return true;
@@ -25,9 +24,9 @@ public class SecurityUtils {
 
     public static boolean hasPermission(HttpServletRequest req){
         String urlPattern = UrlPatternUtils.getUrlPattern(req);
-        Set<UsersRole> allRoles = SecurityConfig.getAllAppRoles();
-        for (UsersRole role : allRoles) {
-            if (!req.isUserInRole(role.toString())) {
+        Set<String> allRoles = SecurityConfig.getAllAppRoles();
+        for (String role : allRoles) {
+            if (!role.equals("Logined")) {
                 continue;
             }
             List<String> urlPatterns = SecurityConfig.getUrlPatternsForRole(role);

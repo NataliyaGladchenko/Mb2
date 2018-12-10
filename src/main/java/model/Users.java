@@ -39,8 +39,7 @@ public class Users extends BaseModel {
     @OneToMany(targetEntity = Answers.class)
     private List<Answers> answersList;
 
-
-    public Users(int userId, String userName, String pasportData, int age,int password, List<Answers> answersList) {
+    public Users(int userId, String userName, String pasportData, int age, int password, List<Answers> answersList) {
         this.userId = userId;
         this.userName = userName;
         this.pasportData = pasportData;
@@ -101,9 +100,10 @@ public class Users extends BaseModel {
         this.password = password;
     }
 
+
     @Override
     public String toString() {
-        return userName + age;
+        return userName + age ;
     }
 
 
